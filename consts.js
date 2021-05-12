@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 
 //API URLS
 const API_BASE_URL = "https://api.TheDogAPI.com/";
@@ -9,9 +9,11 @@ const config = {
   HOST: process.env.HOST || "localhost",
 };
 
+const HOST = config.HOST;
+
 //SERVER URLS
 
-const VERSION = "/v1";
+const VERSION = `/v1`;
 let SERVER_DOG = `${VERSION}/dog`;
 let SERVER_DOGS = `${VERSION}/dogs`;
 let SERVER_TEMPERS = `${VERSION}/temperaments`;
@@ -33,5 +35,5 @@ module.exports = {
   SERVER_TEMPERS,
   SERVER_ADD_DOG,
   SERVER_DOG_DETAILS,
-  SERVER_MYDOGS
+  SERVER_MYDOGS,
 };

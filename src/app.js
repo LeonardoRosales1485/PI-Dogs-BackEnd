@@ -3,7 +3,6 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
-const config = require("../consts.js");
 
 require("./db.js");
 
@@ -11,12 +10,17 @@ const server = express();
 
 server.name = "API";
 
+const REQUESTS =
+  process.env.DATABASE_URL !== undefined
+    ? "https://pi-dogs-front.vercel.app"
+    : "http://localhost:3000";
+
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
 server.use(cookieParser());
 server.use(morgan("dev"));
 server.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "pi-dogs-front-tgpnvpowd-leonardorosales1485.vercel.app"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", REQUESTS); // update to match the domain you will make the request from
   res.header("Access-Control-Allow-Credentials", "true");
   res.header(
     "Access-Control-Allow-Headers",

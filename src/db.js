@@ -5,13 +5,35 @@ const path = require("path");
 const { PassThrough } = require("stream");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
-  {
-    logging: false, // set to console.log to see the raw SQL queries
-    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  }
-);
+let sequelize;
+if (process.env.DATABASE_URL !== undefined) {
+  console.log("WEB ENVIROMENT");
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: "postgres",
+    protocol: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  });
+} else {
+  console.log("LOCAL ENVIROMENT");
+  sequelize = new Sequelize(
+    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+    {
+      dialect: "postgres",
+      protocol: "postgres",
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      },
+    }
+  );
+}
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -41,10 +63,16 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Dogs, Temperaments } = sequelize.models;
 
 // Aca vendrian las relaciones
-Temperaments.belongsToMany(Dogs, { through: 'dogs_tempers', timestamps: false });
-Dogs.belongsToMany(Temperaments, { through: 'dogs_tempers', timestamps: false });
+Temperaments.belongsToMany(Dogs, {
+  through: "dogs_tempers",
+  timestamps: false,
+});
+Dogs.belongsToMany(Temperaments, {
+  through: "dogs_tempers",
+  timestamps: false,
+});
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+  ...sequelize.models,
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };

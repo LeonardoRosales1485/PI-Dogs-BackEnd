@@ -36,6 +36,7 @@ module.exports = (sequelize) => {
       },
     },
     {
+      timestamps: false, //no necesitamos updatedAt ni createdAt
       freezeTableName: true, //para evitar que sequelize agregue nombres plurales a su criterio
     }
   );
