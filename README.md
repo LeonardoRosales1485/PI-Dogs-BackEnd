@@ -1,9 +1,5 @@
-## Backend for my personal Project
-Hello! This GitHub repo is intended to be used with the article [Deploying a Back-end with Heroku](https://www.codecademy.com/articles/deploying-a-back-end-with-heroku).
-
-Make sure to follow the steps as outlined in the article to see how to use Heroku for your deployment needs!
-
-You're free to make changes on your own branch, but for the sake of consistency, we will not be merging any external pull requests. Thank you and happy coding!Back End for my personal project at coding bootcamp SoyHenry
+# PI-Dogs-BackEnd
+Front End of my personal project for coding bootcamp SoyHenry
 
 # How to start on local
 1- Open your terminal
