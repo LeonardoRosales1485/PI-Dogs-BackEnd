@@ -1,5 +1,10 @@
 # PI-Dogs-BackEnd
-Front End of my personal project for coding bootcamp SoyHenry
+Front End of my personal project for coding bootcamp SoyHenry. I had to use the following technologies:
+- HTML
+- CSS
+- React
+- Redux
+- Node.js
 
 # How to start on local
 1- Open your terminal
